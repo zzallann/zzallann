@@ -1,0 +1,368 @@
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-T-8" />
+    <link rel="icon" type="image/svg+xml" href="/app-icon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/app-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1A202C" />
+    <title>Astoria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <style>
+      html, body {
+        overflow-x: hidden;
+      }
+      :root {
+        --theme-bg: radial-gradient(ellipse at center, #265599, #091325);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --text-tertiary: rgba(255, 255, 255, 0.7);
+        --component-bg: rgba(23, 37, 84, 0.4);
+        --component-bg-hover: rgba(30, 41, 59, 0.6);
+        --input-bg: rgba(30, 41, 59, 0.9);
+        --border-color: rgba(255, 255, 255, 0.2);
+        --text-on-accent: #ffffff;
+      }
+      html[data-theme='pink'] {
+        --theme-bg: radial-gradient(ellipse at center, #d03d8d, #4d183d);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --text-tertiary: rgba(255, 255, 255, 0.7);
+        --component-bg: rgba(77, 24, 61, 0.4);
+        --component-bg-hover: rgba(77, 24, 61, 0.6);
+        --input-bg: rgba(77, 24, 61, 0.8);
+        --border-color: rgba(255, 255, 255, 0.2);
+        --text-on-accent: #ffffff;
+      }
+      html[data-theme='green'] {
+        --theme-bg: radial-gradient(ellipse at center, #5a8c5a, #1a331a);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --text-tertiary: rgba(255, 255, 255, 0.7);
+        --component-bg: rgba(26, 51, 26, 0.4);
+        --component-bg-hover: rgba(26, 51, 26, 0.6);
+        --input-bg: rgba(26, 51, 26, 0.8);
+        --border-color: rgba(255, 255, 255, 0.2);
+        --text-on-accent: #ffffff;
+      }
+      html[data-theme='horizon'] {
+        --theme-bg: linear-gradient(135deg, #4c004c, #004c4c);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.85);
+        --text-tertiary: rgba(255, 255, 255, 0.75);
+        --component-bg: rgba(25, 25, 25, 0.3);
+        --component-bg-hover: rgba(35, 35, 35, 0.5);
+        --input-bg: rgba(10, 10, 10, 0.7);
+        --border-color: rgba(255, 255, 255, 0.25);
+        --text-on-accent: #ffffff;
+      }
+      html[data-theme='christmas'] {
+        --theme-bg: radial-gradient(ellipse at bottom, #2d5a37, #7f1d1d);
+        --text-primary: #f0f0f0;
+        --text-secondary: rgba(240, 240, 240, 0.8);
+        --text-tertiary: rgba(240, 240, 240, 0.7);
+        --component-bg: rgba(10, 25, 10, 0.4);
+        --component-bg-hover: rgba(20, 45, 20, 0.6);
+        --input-bg: rgba(5, 15, 5, 0.8);
+        --border-color: rgba(255, 255, 255, 0.2);
+        --text-on-accent: #ffffff;
+      }
+      html[data-theme='dark9'] {
+        --theme-bg: linear-gradient(145deg, #330000, #1a0000);
+        --text-primary: #ffffff;
+        --text-secondary: #ffb3b3;
+        --text-tertiary: #ff8080;
+        --component-bg: rgba(255, 0, 0, 0.1);
+        --component-bg-hover: rgba(255, 0, 0, 0.2);
+        --input-bg: rgba(10, 0, 0, 0.7);
+        --border-color: rgba(229, 57, 53, 0.3);
+        --text-on-accent: #ffffff;
+      }
+      
+      body {
+        background: var(--theme-bg);
+        transition: background 0.5s ease-in-out;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+      }
+      input, textarea {
+        -webkit-user-select: text; /* Safari */
+        -moz-user-select: text; /* Firefox */
+        -ms-user-select: text; /* IE 10+ and Edge */
+        user-select: text; /* Standard syntax */
+      }
+      html[data-theme='blue'] body {
+          background-color: #091325; /* Blue fallback */
+      }
+      html[data-theme='pink'] body {
+          background-color: #4d183d; /* Pink fallback */
+      }
+      html[data-theme='green'] body {
+          background-color: #1a331a; /* Green fallback */
+      }
+      html[data-theme='horizon'] body {
+          background-color: #002626; /* Horizon fallback */
+      }
+      html[data-theme='christmas'] body {
+          background-color: #0a191e; /* Christmas fallback */
+      }
+      html[data-theme='dark9'] body {
+          background-color: #111111; /* Dark9 fallback */
+      }
+      
+      .font-lilita {
+        font-family: 'Lilita One', sans-serif;
+      }
+      html[data-theme='dark9'] .font-lilita {
+        color: #e53935;
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fade-in-down {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fade-out-right {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(50px); }
+      }
+       @keyframes fade-in-right {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+      .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+      .animate-fade-in-down { animation: fade-in-down 0.5s ease-out forwards; }
+      .animate-fade-out-right { animation: fade-out-right 0.4s ease-in forwards; }
+      .animate-fade-in-right { animation: fade-in-right 0.3s ease-out forwards; }
+
+      @keyframes pop {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+      .animate-pop { animation: pop 0.3s ease-in-out; }
+
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+      .marquee-content {
+        display: inline-block;
+        animation: marquee 25s linear infinite;
+        will-change: transform;
+      }
+      .pause-animation {
+        animation-play-state: paused;
+      }
+
+      /* Logout Button Styles */ 
+      .Btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 45px;
+        height: 45px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition-duration: .3s;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+        background-color: rgb(255, 65, 65);
+      }
+
+      .sign {
+        width: 100%;
+        transition-duration: .3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sign svg {
+        width: 17px;
+      }
+
+      .sign svg path {
+        stroke: white;
+        stroke-width: 2.5;
+      }
+
+      .text {
+        position: absolute;
+        right: 0%;
+        width: 0%;
+        opacity: 0;
+        color: white;
+        font-size: 1em;
+        font-weight: 600;
+        transition-duration: .3s;
+      }
+
+      .Btn:hover {
+        width: 155px;
+        border-radius: 40px;
+        transition-duration: .3s;
+      }
+
+      .Btn:hover .sign {
+        width: 30%;
+        transition-duration: .3s;
+        padding-left: 20px;
+      }
+
+      .Btn:hover .text {
+        opacity: 1;
+        width: 70%;
+        transition-duration: .3s;
+        padding-right: 10px;
+      }
+
+      .Btn:active {
+        transform: translate(2px ,2px);
+      }
+      
+      /* Settings Button Styles */
+      .SettingsBtn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 45px;
+        height: 45px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition-duration: .3s;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+        background-color: var(--component-bg);
+      }
+
+      .SettingsBtn .sign {
+        width: 100%;
+        transition-duration: .3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .SettingsBtn .sign svg {
+        width: 20px;
+        stroke: white;
+      }
+
+      .SettingsBtn .text {
+        position: absolute;
+        right: 0%;
+        width: 0%;
+        opacity: 0;
+        color: white;
+        font-size: 1em;
+        font-weight: 600;
+        transition-duration: .3s;
+      }
+
+      .SettingsBtn:hover {
+        width: 145px;
+        border-radius: 40px;
+        transition-duration: .3s;
+        background-color: var(--component-bg-hover);
+      }
+
+      .SettingsBtn:hover .sign {
+        width: 30%;
+        transition-duration: .3s;
+        padding-left: 18px;
+      }
+
+      .SettingsBtn:hover .text {
+        opacity: 1;
+        width: 70%;
+        transition-duration: .3s;
+        padding-right: 10px;
+      }
+
+      .SettingsBtn:active {
+        transform: translate(2px ,2px);
+      }
+
+      /* Golden Button */
+      .golden-button {
+        touch-action: manipulation;
+        display: inline-block;
+        outline: none;
+        font-family: inherit;
+        font-size: 1em;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 0.3em;
+        height: 2.75em;
+        line-height: 2.5em;
+        text-transform: uppercase;
+        padding: 0 1em;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+          inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+          inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+        background-image: linear-gradient(
+          160deg,
+          #a54e07,
+          #b47e11,
+          #fef1a2,
+          #bc881b,
+          #a54e07
+        );
+        border: 1px solid #a55d07;
+        color: rgb(120, 50, 5);
+        text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-size: 100% 100%;
+        background-position: center;
+      }
+
+      .golden-button:focus,
+      .golden-button:hover {
+        background-size: 150% 150%;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23),
+          inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+        border: 1px solid rgba(165, 93, 7, 0.6);
+        color: rgba(120, 50, 5, 0.8);
+      }
+
+      .golden-button:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+          inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+      }
+
+    </style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root" class="w-full h-full"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
